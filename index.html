@@ -1,0 +1,1382 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=visibility"
+        />
+
+        <title>School Management Dashboard</title>
+        <meta name="description" content="Next.js School Management System" />
+        <link
+            rel="icon"
+            href="/favicon.ico"
+            type="image/x-icon"
+            sizes="150x150"
+        />
+        <meta name="next-size-adjust" />
+
+        <style type="text/tailwindcss">
+            @layer utilities {
+                .content-auto {
+                    content-visibility: auto;
+                }
+            }
+        </style>
+        <style>
+            .material-symbols-outlined {
+                font-variation-settings:
+                    "FILL" 0,
+                    "wght" 400,
+                    "GRAD" 0,
+                    "opsz" 24;
+            }
+        </style>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body class="bg-custom-gradient">
+        <div class="h-screen flex">
+            <div
+                id="bar-pembeni"
+                class="hidden md:block w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%] p-4"
+            >
+                <a
+                    class="flex items-center justify-center lg:justify-start gap-2"
+                    href="/dashboard/admin"
+                >
+                </a>
+                <div class="mt-4 text-sm">
+                    <div class="flex flex-col">
+                        <span
+                            class="hidden lg:block text-gray-400 font-light my-4"
+                            >MENU</span
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/admin"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M240-200h147.69v-235.38h184.62V-200H720v-360L480-741.54 240-560v360Zm-40 40v-420l280-211.54L760-580v420H532.31v-235.38H427.69V-160H200Zm280-310.77Z"
+                                /></svg
+                            ><span class="hidden lg:block">Home</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/teachers"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M224.62-160q-27.62 0-46.12-18.5Q160-197 160-224.62v-510.76q0-27.62 18.5-46.12Q197-800 224.62-800h510.76q27.62 0 46.12 18.5Q800-763 800-735.38v510.76q0 27.62-18.5 46.12Q763-160 735.38-160H224.62ZM200-735.38v510.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h510.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-510.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H660v244.62l-80-47.7-80 47.7V-760H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93ZM200-200v-560 560Z"
+                                /></svg
+                            ><span class="hidden lg:block">Teachers</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/students"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M40-256.92v-34.54q0-36.85 39.38-61.16 39.39-24.3 101.39-24.3 9.15 0 19.61.88 10.47.89 22.24 2.89-9.39 16.38-13.7 33.61-4.3 17.23-4.3 34.54v48.08H40Zm240 0v-45q0-24.18 14.04-44.21 14.04-20.02 41.42-34.64 27.39-14.61 63.81-21.92 36.42-7.31 80.42-7.31 44.85 0 81.27 7.31 36.42 7.31 63.81 21.92 27.38 14.62 41.31 34.64Q680-326.1 680-301.92v45H280Zm475.38 0v-47.85q0-19.14-4.19-36.07t-12.57-32.31q12.53-2 22.5-2.89 9.96-.88 18.88-.88 62 0 101 24.19t39 61.27v34.54H755.38Zm-434.23-40h317.93v-8.46q-2.31-28.47-46.66-46.54Q548.08-370 480-370t-112.42 18.08q-44.35 18.07-46.43 46.54v8.46Zm-140.59-117.7q-23.56 0-40.14-16.72-16.57-16.72-16.57-40.2 0-23.23 16.72-39.69 16.72-16.46 40.2-16.46 23.23 0 40.08 16.46 16.84 16.46 16.84 39.92 0 22.77-16.42 39.73-16.43 16.96-40.71 16.96Zm599.44 0q-23 0-39.96-16.96t-16.96-39.73q0-23.46 16.96-39.92t40.11-16.46q23.85 0 40.31 16.46t16.46 39.69q0 23.48-16.36 40.2-16.37 16.72-40.56 16.72ZM480.27-440q-36.42 0-62.19-25.58-25.77-25.57-25.77-62.11 0-37.27 25.57-62.48 25.58-25.22 62.12-25.22 37.27 0 62.48 25.14 25.21 25.13 25.21 62.29 0 36.42-25.13 62.19Q517.43-440 480.27-440Zm.11-40q19.7 0 33.5-14.19 13.81-14.2 13.81-33.89t-13.71-33.5q-13.71-13.81-33.98-13.81-19.31 0-33.5 13.72-14.19 13.71-14.19 33.98 0 19.3 14.19 33.5Q460.69-480 480.38-480Zm-.15 183.08ZM480-527.69Z"
+                                /></svg
+                            ><span class="hidden lg:block">Students</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/parents"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M300-727.69q-27.92 0-47.81-19.89-19.88-19.88-19.88-47.8 0-27.93 19.88-47.81 19.89-19.89 47.81-19.89t47.81 19.89q19.88 19.88 19.88 47.81 0 27.92-19.88 47.8-19.89 19.89-47.81 19.89Zm366.15 220q-21.15 0-36.73-15.26-15.57-15.26-15.57-37.05 0-22.69 15.57-37.5 15.58-14.81 36.73-14.81 22.7 0 37.5 14.81 14.81 14.81 14.81 37.12 0 22.3-14.81 37.5-14.8 15.19-37.5 15.19ZM229.23-100v-263.08h-66.15v-235.38q0-26.66 18.98-45.64t45.63-18.98h116.93q20.46 0 36.53 11.27 16.08 11.27 23.23 30.27l99.93 263.92 91.77-91.76q7.23-7.39 16.28-11.31 9.05-3.93 19.1-3.93h79.31q20.51 0 34.87 14.36Q760-435.9 760-415.38v138.46h-40V-100H612.31v-308.62l-77.16 76.31h-67.23L380-573.69V-100H229.23Z"
+                                /></svg
+                            ><span class="hidden lg:block">Parents</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/subjects"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M200-230.77V-280h320v40l-320 9.23Zm0-151.54v-40h560v40H200Zm0-155.38v-40h560v40H200ZM200-680v-49.23h560V-680H200Z"
+                                /></svg
+                            ><span class="hidden lg:block">Subjects</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/classes"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M310.77-310.77h40.92l236.93-234.92-42.93-42.93-234.92 234.93v42.92Zm299.69-256.77 32.77-33.23q6-6 6-14t-6-14l-14.46-14.46q-6-6-14-6t-14 6l-33.23 32.77 42.92 42.92ZM224.62-160q-26.85 0-45.74-18.88Q160-197.77 160-224.62v-510.76q0-26.85 18.88-45.74Q197.77-800 224.62-800h188q-5.47-30.62 14.65-55.31Q447.38-880 480-880q33.38 0 53.5 24.69 20.12 24.69 13.88 55.31h188q26.85 0 45.74 18.88Q800-762.23 800-735.38v510.76q0 26.85-18.88 45.74Q762.23-160 735.38-160H224.62Zm0-40h510.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-510.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v510.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69ZM480-782.31q13 0 21.5-8.5t8.5-21.5q0-13-8.5-21.5t-21.5-8.5q-13 0-21.5 8.5t-8.5 21.5q0 13 8.5 21.5t21.5 8.5ZM200-200v-560 560Z"
+                                /></svg
+                            ><span class="hidden lg:block">Classes</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/lessons"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M215.23-687.69H744l-53.23-63.85q-3.85-3.84-8.85-6.15-5-2.31-10.38-2.31H287.69q-5.38 0-10.38 2.31-5 2.31-8.85 6.15l-53.23 63.85ZM400-441.54l80-40 80 40v-206.15H400v206.15ZM224.62-160q-26.85 0-45.74-18.88Q160-197.77 160-224.62v-435.92q0-11.69 3.73-22t11.19-19l62.31-74.84q8.69-11.7 21.73-17.66Q272-800 286.92-800h384.62q14.92 0 28.34 5.96 13.43 5.96 22.12 17.66L785.08-700q7.46 8.69 11.19 19.38 3.73 10.7 3.73 22.39v92.85q-11 .76-20.73 2.61-9.73 1.85-19.27 5.46v-90.38H600v234.23l-24.69 24.69L480-436.15l-120 60v-271.54H200v423.07q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h249.23v40H224.62ZM600-647.69h160-160Zm-400 0h375.31H200ZM569.23-160v-88.38l213.31-212.31q5.92-5.93 12.31-8 6.38-2.08 12.77-2.08 6.61 0 13.38 2.58 6.77 2.57 11.92 7.73l37 37.77q4.93 5.92 7.5 12.31Q880-404 880-397.62q0 6.39-2.46 12.89-2.46 6.5-7.62 12.42L657.62-160h-88.39Zm275.39-237.62-37-37.76 37 37.76Zm-240 202.24h38l138.69-138.93-18.77-19-18.23-19.54-139.69 139.47v38Zm157.92-157.93-18.23-19.54 37 38.54-18.77-19Z"
+                                /></svg
+                            ><span class="hidden lg:block">Lessons</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/dashboard/list/exams"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M540-378.46q12.38 0 21.81-9.42 9.42-9.43 9.42-21.81 0-12.39-9.42-21.81-9.43-9.42-21.81-9.42-12.38 0-21.81 9.42-9.42 9.42-9.42 21.81 0 12.38 9.42 21.81 9.43 9.42 21.81 9.42Zm-17.69-112.62h35.38q1.54-25.15 7.93-37.88 6.38-12.73 30.69-35.5 25.38-23.08 35.38-41.19 10-18.12 10-41.58 0-40.39-28.81-67.35-28.8-26.96-72.88-26.96-33.31 0-59.19 18-25.89 18-39.43 49.08l32.47 14.31q11.3-23.47 27.57-35.2 16.27-11.73 38.58-11.73 28.62 0 47.46 16.96 18.85 16.97 18.85 43.81 0 16.31-9.16 30.35-9.15 14.04-31.46 33.81-25.31 22.07-34.34 40.5-9.04 18.42-9.04 50.57ZM324.62-280q-27.62 0-46.12-18.5Q260-317 260-344.62v-430.76q0-27.62 18.5-46.12Q297-840 324.62-840h430.76q27.62 0 46.12 18.5Q820-803 820-775.38v430.76q0 27.62-18.5 46.12Q783-280 755.38-280H324.62Zm0-40h430.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-430.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H324.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v430.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69Zm-120 160q-27.62 0-46.12-18.5Q140-197 140-224.61v-470.77h40v470.77q0 9.23 7.69 16.92 7.69 7.69 16.93 7.69h470.76v40H204.62ZM300-800v480-480Z"
+                                /></svg
+                            ><span class="hidden lg:block">Exams</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/assignments"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M224.62-160q-26.85 0-45.74-18.88Q160-197.77 160-224.62v-510.76q0-26.85 18.88-45.74Q197.77-800 224.62-800h188q-5.47-30.62 14.65-55.31Q447.38-880 480-880q33.38 0 53.5 24.69 20.12 24.69 13.88 55.31h188q26.85 0 45.74 18.88Q800-762.23 800-735.38v510.76q0 26.85-18.88 45.74Q762.23-160 735.38-160H224.62Zm0-40h510.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-510.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v510.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69ZM300-309.23h240v-40H300v40ZM300-460h360v-40H300v40Zm0-150.77h360v-40H300v40Zm180-171.54q13 0 21.5-8.5t8.5-21.5q0-13-8.5-21.5t-21.5-8.5q-13 0-21.5 8.5t-8.5 21.5q0 13 8.5 21.5t21.5 8.5ZM200-200v-560 560Z"
+                                /></svg
+                            ><span class="hidden lg:block">Assignments</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/results"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M164.62-140q-26.66 0-45.64-18.98T100-204.62v-586.92l47 47 66-67 67 67 67-67 66 67 67-67 67 67 66-67 67 67 67-67 66 67 47-47v586.92q0 26.66-18.98 45.64T795.38-140H164.62Zm0-40H460v-280H140v255.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92ZM500-180h295.38q10.77 0 17.7-6.92 6.92-6.93 6.92-17.7V-300H500v120Zm0-160h320v-120H500v120ZM140-500h680v-167.69H140V-500Z"
+                                /></svg
+                            ><span class="hidden lg:block">Results</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/attendance"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M438-255.23 323.69-369.54l28.77-28.77L438-312.77l169.54-169.54 28.77 28.77L438-255.23ZM224.62-120q-27.62 0-46.12-18.5Q160-157 160-184.62v-510.76q0-27.62 18.5-46.12Q197-760 224.62-760h70.76v-89.23h43.08V-760h286.16v-89.23h40V-760h70.76q27.62 0 46.12 18.5Q800-723 800-695.38v510.76q0 27.62-18.5 46.12Q763-120 735.38-120H224.62Zm0-40h510.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-350.76H200v350.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69ZM200-575.39h560v-119.99q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v119.99Zm0 0V-720-575.39Z"
+                                /></svg
+                            ><span class="hidden lg:block">Attendance</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/dashboard/list/events"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M200-575.39h560v-119.99q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v119.99Zm0 0V-720-575.39ZM224.62-120q-27.62 0-46.12-18.5Q160-157 160-184.62v-510.76q0-27.62 18.5-46.12Q197-760 224.62-760h70.76v-89.23h43.08V-760h286.16v-89.23h40V-760h70.76q27.62 0 46.12 18.5Q800-723 800-695.38v210.07q-9.77-3.61-19.77-5.38T760-493.92v-41.46H200v350.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h268.15q3.15 11.23 8.04 20.85 4.88 9.61 10.19 19.15H224.62Zm510.76 40q-66.84 0-113.42-46.58-46.58-46.57-46.58-113.42t46.58-113.42Q668.54-400 735.38-400q66.85 0 113.43 46.58 46.57 46.57 46.57 113.42t-46.57 113.42Q802.23-80 735.38-80Zm66.24-71.92 21.84-21.85-72.69-72.69v-108.92H720v121.84l81.62 81.62Z"
+                                /></svg
+                            ><span class="hidden lg:block">Events</span></a
+                        >
+                    </div>
+                    <div class="flex flex-col">
+                        <span
+                            class="hidden lg:block text-gray-400 font-light my-4"
+                            >OTHER</span
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/profile"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M247.85-260.62q51-36.69 108.23-58.03Q413.31-340 480-340t123.92 21.35q57.23 21.34 108.23 58.03 39.62-41 63.73-96.84Q800-413.31 800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 66.69 24.12 122.54 24.11 55.84 63.73 96.84ZM480.02-460q-50.56 0-85.29-34.71Q360-529.42 360-579.98q0-50.56 34.71-85.29Q429.42-700 479.98-700q50.56 0 85.29 34.71Q600-630.58 600-580.02q0 50.56-34.71 85.29Q530.58-460 480.02-460ZM480-120q-75.31 0-141-28.04t-114.31-76.65Q176.08-273.31 148.04-339 120-404.69 120-480t28.04-141q28.04-65.69 76.65-114.31 48.62-48.61 114.31-76.65Q404.69-840 480-840t141 28.04q65.69 28.04 114.31 76.65 48.61 48.62 76.65 114.31Q840-555.31 840-480t-28.04 141q-28.04 65.69-76.65 114.31-48.62 48.61-114.31 76.65Q555.31-120 480-120Zm0-40q55.31 0 108.85-19.35 53.53-19.34 92.53-52.96-39-31.31-90.23-49.5Q539.92-300 480-300q-59.92 0-111.54 17.81-51.61 17.81-89.84 49.88 39 33.62 92.53 52.96Q424.69-160 480-160Zm0-340q33.69 0 56.85-23.15Q560-546.31 560-580t-23.15-56.85Q513.69-660 480-660t-56.85 23.15Q400-613.69 400-580t23.15 56.85Q446.31-500 480-500Zm0-80Zm0 350Z"
+                                /></svg
+                            ><span class="hidden lg:block">Profile</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/settings"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="m405.38-120-14.46-115.69q-19.15-5.77-41.42-18.16-22.27-12.38-37.88-26.53L204.92-235l-74.61-130 92.23-69.54q-1.77-10.84-2.92-22.34-1.16-11.5-1.16-22.35 0-10.08 1.16-21.19 1.15-11.12 2.92-25.04L130.31-595l74.61-128.46 105.93 44.61q17.92-14.92 38.77-26.92 20.84-12 40.53-18.54L405.38-840h149.24l14.46 116.46q23 8.08 40.65 18.54 17.65 10.46 36.35 26.15l109-44.61L829.69-595l-95.31 71.85q3.31 12.38 3.7 22.73.38 10.34.38 20.42 0 9.31-.77 19.65-.77 10.35-3.54 25.04L827.92-365l-74.61 130-107.23-46.15q-18.7 15.69-37.62 26.92-18.92 11.23-39.38 17.77L554.62-120H405.38ZM440-160h78.23L533-268.31q30.23-8 54.42-21.96 24.2-13.96 49.27-38.27L736.46-286l39.77-68-87.54-65.77q5-17.08 6.62-31.42 1.61-14.35 1.61-28.81 0-15.23-1.61-28.81-1.62-13.57-6.62-29.88L777.77-606 738-674l-102.08 42.77q-18.15-19.92-47.73-37.35-29.57-17.42-55.96-23.11L520-800h-79.77l-12.46 107.54q-30.23 6.46-55.58 20.81-25.34 14.34-50.42 39.42L222-674l-39.77 68L269-541.23q-5 13.46-7 29.23t-2 32.77q0 15.23 2 30.23t6.23 29.23l-86 65.77L222-286l99-42q23.54 23.77 48.88 38.12 25.35 14.34 57.12 22.34L440-160Zm38.92-220q41.85 0 70.93-29.08 29.07-29.07 29.07-70.92t-29.07-70.92Q520.77-580 478.92-580q-42.07 0-71.04 29.08-28.96 29.07-28.96 70.92t28.96 70.92Q436.85-380 478.92-380ZM480-480Z"
+                                /></svg
+                            ><span class="hidden lg:block">Settings</span></a
+                        ><a
+                            class="flex items-center justify-center lg:justify-start gap-4 text-gray-500 py-2 md:px-2 rounded-md hover:bg-lamaSkyLight"
+                            href="/sign-in"
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M224.62-160q-27.62 0-46.12-18.5Q160-197 160-224.62v-510.76q0-27.62 18.5-46.12Q197-800 224.62-800h256.15v40H224.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v510.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h256.15v40H224.62Zm433.84-178.46-28.08-28.77L723.15-460H367.69v-40h355.46l-92.77-92.77 28.08-28.77L800-480 658.46-338.46Z"
+                                /></svg
+                            ><span class="hidden lg:block">Logout</span></a
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="w-full md:w-[92%] lg:w-[84%] xl:w-[86%] bg-custom-gradient overflow-scroll flex flex-col"
+            >
+                <div
+                    class="flex gap-8 items-center justify-between p-4 sticky top-0 bg-white/30 backdrop-blur-lg z-50 shadow-md"
+                >
+                    <div
+                        class="sm:hidden sm:block menu-btn relative flex justify-center items-center p-4 cursor-pointer transition-all duration-500 ease-in-out"
+                    >
+                        <div
+                            class="menu-btn_burger relative w-6 h-[3px] bg-[#5f6368] rounded-[5px] shadow-md transition-all duration-500 ease-in-out"
+                        ></div>
+                    </div>
+                    <a
+                        class="flex items-center justify-center lg:justify-start gap-2"
+                        href="/dashboard/admin"
+                        ><img
+                            alt="logo"
+                            loading="lazy"
+                            width="32"
+                            height="32"
+                            decoding="async"
+                            data-nimg="1"
+                            style="color: transparent"
+                            srcset="
+                                https://school-dashboard-omega.vercel.app/_next/image?url=%2Flogo.png&w=32&q=75
+                            "
+                            src="https://school-dashboard-omega.vercel.app/_next/image?url=%2Flogo.png&w=64&q=75"
+                    /></a>
+                    <div
+                        class="hidden md:flex items-center gap-2 text-xs rounded-full ring-[1.5px] ring-gray-500 px-2"
+                    >
+                        <img
+                            alt=""
+                            loading="lazy"
+                            width="14"
+                            height="14"
+                            decoding="async"
+                            data-nimg="1"
+                            style="color: transparent"
+                            srcset="
+                                https://school-dashboard-omega.vercel.app/_next/image?url=%2Fsearch.png&w=16&q=75
+                            "
+                            src="https://school-dashboard-omega.vercel.app/_next/image?url=%2Fsearch.png&w=32&q=75"
+                        /><input
+                            type="text"
+                            placeholder="Search..."
+                            class="w-200 p-2 bg-transparent outline-none"
+                        />
+                    </div>
+                    <div class="flex items-center gap-6 justify-end w-full">
+                        <div
+                            class="bg-[#cad5bb] rounded-full w-7 h-7 flex items-center justify-center cursor-pointer"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M200-209.23v-40h64.62v-316.92q0-78.39 49.61-137.89 49.62-59.5 125.77-74.11V-800q0-16.67 11.64-28.33Q463.28-840 479.91-840t28.36 11.67Q520-816.67 520-800v21.85q76.15 14.61 125.77 74.11 49.61 59.5 49.61 137.89v316.92H760v40H200Zm280-286.15Zm-.14 390.76q-26.71 0-45.59-18.98-18.89-18.98-18.89-45.63h129.24q0 26.85-19.03 45.73-19.02 18.88-45.73 18.88ZM304.62-249.23h350.76v-316.92q0-72.93-51.23-124.16-51.23-51.23-124.15-51.23-72.92 0-124.15 51.23-51.23 51.23-51.23 124.16v316.92Z"
+                                />
+                            </svg>
+                        </div>
+                        <div
+                            class="bg-[#cad5bb] rounded-full w-7 h-7 flex items-center justify-center cursor-pointer relative"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="24px"
+                                viewBox="0 -960 960 960"
+                                width="24px"
+                                fill="#5f6368"
+                            >
+                                <path
+                                    d="M260-420h280v-40H260v40Zm0-120h440v-40H260v40Zm0-120h440v-40H260v40ZM120-156.92v-618.46q0-27.62 18.5-46.12Q157-840 184.62-840h590.76q27.62 0 46.12 18.5Q840-803 840-775.38v430.76q0 27.62-18.5 46.12Q803-280 775.38-280h-532.3L120-156.92ZM226-320h549.38q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-430.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H184.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v521.15L226-320Zm-66 0v-480 480Z"
+                                />
+                            </svg>
+                            <div
+                                class="absolute -top-3 -right-3 w-5 h-5 flex items-center justify-center bg-green-600 text-white rounded-full text-xs"
+                            >
+                                1
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs leading-3 font-medium"
+                                >Juma Mzee</span
+                            ><span class="text-[10px] text-gray-500 text-right"
+                                >Admin</span
+                            >
+                        </div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="30px"
+                            viewBox="0 -960 960 960"
+                            width="30px"
+                            fill="#5f6368"
+                        >
+                            <path
+                                d="M247.85-260.62q51-36.69 108.23-58.03Q413.31-340 480-340t123.92 21.35q57.23 21.34 108.23 58.03 39.62-41 63.73-96.84Q800-413.31 800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 66.69 24.12 122.54 24.11 55.84 63.73 96.84ZM480.02-460q-50.56 0-85.29-34.71Q360-529.42 360-579.98q0-50.56 34.71-85.29Q429.42-700 479.98-700q50.56 0 85.29 34.71Q600-630.58 600-580.02q0 50.56-34.71 85.29Q530.58-460 480.02-460ZM480-120q-75.31 0-141-28.04t-114.31-76.65Q176.08-273.31 148.04-339 120-404.69 120-480t28.04-141q28.04-65.69 76.65-114.31 48.62-48.61 114.31-76.65Q404.69-840 480-840t141 28.04q65.69 28.04 114.31 76.65 48.61 48.62 76.65 114.31Q840-555.31 840-480t-28.04 141q-28.04 65.69-76.65 114.31-48.62 48.61-114.31 76.65Q555.31-120 480-120Zm0-40q55.31 0 108.85-19.35 53.53-19.34 92.53-52.96-39-31.31-90.23-49.5Q539.92-300 480-300q-59.92 0-111.54 17.81-51.61 17.81-89.84 49.88 39 33.62 92.53 52.96Q424.69-160 480-160Zm0-340q33.69 0 56.85-23.15Q560-546.31 560-580t-23.15-56.85Q513.69-660 480-660t-56.85 23.15Q400-613.69 400-580t23.15 56.85Q446.31-500 480-500Zm0-80Zm0 350Z"
+                            />
+                        </svg>
+                    </div>
+                </div>
+                <div class="bg-custom-gradient p-4 rounded-md flex-1 m-4 mt-0">
+                    <div class="flex items-center justify-between">
+                        <h1 class="hidden md:block text-lg font-semibold">
+                            All Students
+                        </h1>
+                        <div
+                            class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto"
+                        >
+                            <div
+                                class="w-full md:w-auto flex items-center gap-2 text-xs rounded-full ring-[1.5px] ring-[#cad5bb] px-2"
+                            >
+                                <img
+                                    alt=""
+                                    loading="lazy"
+                                    width="14"
+                                    height="14"
+                                    decoding="async"
+                                    data-nimg="1"
+                                    style="color: transparent"
+                                    srcset="
+                                        https://school-dashboard-omega.vercel.app/_next/image?url=%2Fsearch.png&w=16&q=75
+                                    "
+                                    src="/https://school-dashboard-omega.vercel.app/_next/image?url=%2Fsearch.png&w=32&q=75"
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    class="w-[200px] p-2 bg-transparent outline-none"
+                                />
+                            </div>
+                            <div class="flex items-center gap-4 self-end">
+                                <button
+                                    class="w-8 h-8 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                >
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="14"
+                                        height="14"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        style="color: transparent"
+                                        srcset="
+                                            https://school-dashboard-omega.vercel.app/_next/image?url=%2Ffilter.png&w=16&q=75
+                                        "
+                                        src="https://school-dashboard-omega.vercel.app/_next/image?url=%2Ffilter.png&w=32&q=75"
+                                    /></button
+                                ><button
+                                    class="w-8 h-8 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                >
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="14"
+                                        height="14"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        style="color: transparent"
+                                        srcset="
+                                            https://school-dashboard-omega.vercel.app/_next/image?url=%2Fsort.png&w=32&q=75
+                                        "
+                                        src="https://school-dashboard-omega.vercel.app/_next/image?url=%2Fsort.png&w=32&q=75"
+                                    /></button
+                                ><button
+                                    id="openModalBtn"
+                                    class="w-8 h-8 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                >
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="16"
+                                        height="16"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        style="color: transparent"
+                                        srcset="
+                                            https://school-dashboard-omega.vercel.app/_next/image?url=%2Fplus.png&w=16&q=75
+                                        "
+                                        src="https://school-dashboard-omega.vercel.app/_next/image?url=%2Fplus.png&w=32&q=75"
+                                    />
+                                </button>
+
+                                <!-- Modal -->
+                                <div
+                                    id="modal"
+                                    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden"
+                                >
+                                    <div
+                                        class="bg-white p-4 rounded-md relative w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%]"
+                                    >
+                                        <form class="flex flex-col gap-8">
+                                            <h1 class="text-xl font-semibold">
+                                                Register new student
+                                            </h1>
+                                            <span
+                                                class="text-xs text-gray-400 font-medium"
+                                            >
+                                                Personal Information
+                                            </span>
+                                            <div
+                                                class="flex justify-between flex-wrap gap-4"
+                                            >
+                                                <!-- Form fields -->
+                                                <div
+                                                    class="flex flex-col gap-2 w-full md:w-1/4"
+                                                >
+                                                    <label
+                                                        class="text-xs text-gray-500"
+                                                        >First Name</label
+                                                    >
+                                                    <input
+                                                        class="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                                                        type="text"
+                                                        name="username"
+                                                    />
+                                                </div>
+                                                <div
+                                                    class="flex flex-col gap-2 w-full md:w-1/4"
+                                                >
+                                                    <label
+                                                        class="text-xs text-gray-500"
+                                                        >Middle Name</label
+                                                    >
+                                                    <input
+                                                        class="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                                                        type="text"
+                                                        name="email"
+                                                    />
+                                                </div>
+                                                <div
+                                                    class="flex flex-col gap-2 w-full md:w-1/4"
+                                                >
+                                                    <label
+                                                        class="text-xs text-gray-500"
+                                                        >Last Name</label
+                                                    >
+                                                    <input
+                                                        class="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                                                        type="password"
+                                                        name="password"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <span
+                                                class="text-xs text-gray-400 font-medium"
+                                                >Academic Information</span
+                                            >
+                                            <div
+                                                class="flex justify-between flex-wrap gap-4"
+                                            >
+                                                <div
+                                                    class="flex flex-col gap-2 w-full md:w-1/4"
+                                                >
+                                                    <label
+                                                        class="text-xs text-gray-500"
+                                                        >Registration
+                                                        Number</label
+                                                    >
+                                                    <input
+                                                        class="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                                                        type="text"
+                                                        name="firstName"
+                                                    />
+                                                </div>
+
+                                                <div
+                                                    class="flex flex-col gap-2 w-full md:w-1/4"
+                                                >
+                                                    <label
+                                                        class="text-xs text-gray-500"
+                                                        >class</label
+                                                    >
+                                                    <input
+                                                        class="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                                                        type="text"
+                                                        name="phone"
+                                                    />
+                                                </div>
+
+                                                <div
+                                                    class="flex flex-col gap-2 w-full md:w-1/4"
+                                                >
+                                                    <label
+                                                        class="text-xs text-gray-500"
+                                                        >Birthday</label
+                                                    >
+                                                    <input
+                                                        class="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                                                        type="date"
+                                                        name="birthday"
+                                                    />
+                                                </div>
+                                                <div
+                                                    class="flex flex-col gap-2 w-full md:w-1/4"
+                                                >
+                                                    <label
+                                                        class="text-xs text-gray-500"
+                                                        >Sex</label
+                                                    >
+                                                    <select
+                                                        class="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+                                                        name="sex"
+                                                    >
+                                                        <option value="male">
+                                                            Male
+                                                        </option>
+                                                        <option value="female">
+                                                            Female
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <button
+                                                class="bg-blue-400 text-white p-2 rounded-md"
+                                            >
+                                                Create
+                                            </button>
+                                        </form>
+                                        <div
+                                            id="closeModalBtn"
+                                            class="absolute top-4 right-4 cursor-pointer"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                fill="#5f6368"
+                                            >
+                                                <path
+                                                    d="M256-227.69 227.69-256l224-224-224-224L256-732.31l224 224 224-224L732.31-704l-224 224 224 224L704-227.69l-224-224-224 224Z"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="w-full mt-4">
+                        <thead>
+                            <tr class="text-left text-gray-500 text-sm">
+                                <th>Info</th>
+                                <th class="hidden md:table-cell">Teacher ID</th>
+                                <th class="hidden md:table-cell">Subjects</th>
+                                <th class="hidden md:table-cell">Classes</th>
+                                <th class="hidden md:table-cell">Phone</th>
+                                <th class="hidden md:table-cell">Address</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://assets.codepen.io/5757628/internal/avatars/users/default.png?format=auto&version=1621065056&width=80&height=80
+                                        "
+                                        src="https://assets.codepen.io/5757628/internal/avatars/users/default.png?format=auto&version=1621065056&width=80&height=80"
+                                        style="color: transparent"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Jumanne Kitila
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            jumanne.kitila@shule.ac.tz
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Math,Geography
+                                </td>
+                                <td class="hidden md:table-cell">1B,2A,3C</td>
+                                <td class="hidden md:table-cell">0742461859</td>
+                                <td class="hidden md:table-cell">
+                                    Singida, Tanzania
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://images.pexels.com/photos/2080382/pexels-photo-2080382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+                                        "
+                                        src="https://images.pexels.com/photos/2080382/pexels-photo-2080382.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Jane Malongo
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            jane.malongo@shule.ac.tz
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Physics,Chemistry
+                                </td>
+                                <td class="hidden md:table-cell">5A,4B,3C</td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Dodoma, Tanzania
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+                                        "
+                                        src="https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                        style="color: transparent"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Michael Kipaya
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            michael.kipaya@shule.ac.tz
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">Biology</td>
+                                <td class="hidden md:table-cell">5A,4B,3C</td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Babati, Tanzania
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://images.pexels.com/photos/1462980/pexels-photo-1462980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+                                        "
+                                        src="https://images.pexels.com/photos/1462980/pexels-photo-1462980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                        style="color: transparent"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Mishary Ibrahim
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            mishary.ibrahim@shule.ac.t
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">History</td>
+                                <td class="hidden md:table-cell">5A,4B,3C</td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Moshi, Tanzania
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+                                        "
+                                        src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                        style="color: transparent"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Mwanahawa Ally
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            mwanahawa.ally@shule.ac.t
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Music,History
+                                </td>
+                                <td class="hidden md:table-cell">5A,4B,3C</td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Arusha, Tanzania
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://images.pexels.com/photos/733500/pexels-photo-733500.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2
+                                        "
+                                        src="https://images.pexels.com/photos/733500/pexels-photo-733500.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                        style="color: transparent"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Anna Ngwira
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            anna.gwira@shule.ac.t
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">Physics</td>
+                                <td class="hidden md:table-cell">5A,4B,3C</td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Kibaha, Pwani
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://images.pexels.com/photos/936043/pexels-photo-936043.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+                                        "
+                                        src="https://images.pexels.com/photos/936043/pexels-photo-936043.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                                        style="color: transparent"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Alex Alela
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            alex.alela@shule.ac.t
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    English,Spanish
+                                </td>
+                                <td class="hidden md:table-cell">5A,4B,3C</td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Zanzibar, Tanzania
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://images.pexels.com/photos/1222345/pexels-photo-1222345.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+                                        "
+                                        src="https://images.pexels.com/photos/1222345/pexels-photo-1222345.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                                        style="color: transparent"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Jofrey Yunji
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            jofrfey.yunji@shule.ac.tz
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Math,Geometry
+                                </td>
+                                <td class="hidden md:table-cell">5A,4B,3C</td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Mbeya, Tanzania
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://images.pexels.com/photos/2505053/pexels-photo-2505053.jpeg?auto=compress&cs=tinysrgb&w=150
+                                        "
+                                        src="https://images.pexels.com/photos/2505053/pexels-photo-2505053.jpeg?auto=compress&cs=tinysrgb&w=150"
+                                        style="color: transparent"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Abu-Bakar Ally
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            abubakar.ally@shule.ac.tz
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Literature,English
+                                </td>
+                                <td class="hidden md:table-cell">5A,4B,3C</td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Tanga, Tanzania
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr
+                                class="border-b border-gray-200 even:bg-white/30 even:backdrop-blur-lg text-sm hover:bg-lamaPurpleLight"
+                            >
+                                <td class="flex items-center gap-4 p-4">
+                                    <img
+                                        alt=""
+                                        loading="lazy"
+                                        width="40"
+                                        height="40"
+                                        decoding="async"
+                                        data-nimg="1"
+                                        class="md:hidden xl:block w-10 h-10 rounded-full object-cover"
+                                        srcset="
+                                            https://images.pexels.com/photos/3206079/pexels-photo-3206079.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500
+                                        "
+                                        src="https://images.pexels.com/photos/3206079/pexels-photo-3206079.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                                        style="color: transparent"
+                                    />
+                                    <div class="flex flex-col">
+                                        <h3 class="font-semibold">
+                                            Ramadhani Salim
+                                        </h3>
+                                        <p class="text-xs text-gray-500">
+                                            ramadhan.salim@shule.ac.tz
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">Biology</td>
+                                <td class="hidden md:table-cell">5A,4B,3C</td>
+                                <td class="hidden md:table-cell">1234567890</td>
+                                <td class="hidden md:table-cell">
+                                    Dodoma, Tanzania
+                                </td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <a href="/dashboard/list/teachers/2"
+                                            ><button
+                                                class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    height="24px"
+                                                    viewBox="0 -960 960 960"
+                                                    width="24px"
+                                                    class="fill-purple-900"
+                                                >
+                                                    <path
+                                                        d="M480.18-353.85q60.97 0 103.47-42.68t42.5-103.65q0-60.97-42.68-103.47t-103.65-42.5q-60.97 0-103.47 42.68t-42.5 103.65q0 60.97 42.68 103.47t103.65 42.5ZM480-392q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm.11 152q-129.96 0-236.88-70.73Q136.31-381.46 83.08-500q53.23-118.54 160.04-189.27T479.89-760q129.96 0 236.88 70.73Q823.69-618.54 876.92-500q-53.23 118.54-160.04 189.27T480.11-240ZM480-500Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"
+                                                    />
+                                                </svg></button></a
+                                        ><button
+                                            class="w-7 h-7 flex items-center justify-center rounded-full bg-[#cad5bb]"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                height="24px"
+                                                viewBox="0 -960 960 960"
+                                                width="24px"
+                                                class="fill-purple-900"
+                                            >
+                                                <path
+                                                    d="M304.62-160q-26.85 0-45.74-18.88Q240-197.77 240-224.62V-720h-40v-40h160v-30.77h240V-760h160v40h-40v495.38q0 27.62-18.5 46.12Q683-160 655.38-160H304.62ZM680-720H280v495.38q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92h350.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93V-720ZM392.31-280h40v-360h-40v360Zm135.38 0h40v-360h-40v360ZM280-720v520-520Z"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div
+                        class="p-4 flex items-center justify-between text-gray-500"
+                    >
+                        <button
+                            disabled=""
+                            class="py-2 px-4 rounded-md bg-slate-200 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Prev
+                        </button>
+                        <div class="flex items-center gap-2 text-sm">
+                            <button class="px-2 rounded-sm bg-lamaSky">1</button
+                            ><button class="px-2 rounded-sm">2</button
+                            ><button class="px-2 rounded-sm">3</button
+                            >...<button class="px-2 rounded-sm">10</button>
+                        </div>
+                        <button
+                            class="py-2 px-4 rounded-md bg-slate-200 text-xs font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        backgroundImage: {
+                            "custom-gradient": `
+                radial-gradient(73% 101% at 95.54% 95.05%, rgba(255, 156, 65, 0.78) 0%, rgba(255, 168, 88, 0) 100%), 
+                linear-gradient(197deg, rgba(255, 240, 164, 1) 0%, rgba(255, 240, 164, 0) 100%), 
+                radial-gradient(59% 74% at 10% -10%, rgba(49, 132, 255, 0.8) 0%, rgba(56, 75, 246, 0.21) 52%, rgba(62, 246, 246, 0) 100%), 
+                linear-gradient(143deg, rgba(62, 158, 246, 1) 0%, rgba(238, 43, 183, 0.33) 30%, rgba(246, 62, 106, 0) 56%), 
+                linear-gradient(288deg, rgba(217, 155, 255, 1) 33%, rgba(217, 170, 221, 0) 97%)
+              `
+                        }
+                    }
+                }
+            };
+        </script>
+        <script src="main.js"></script>
+    </body>
+</html>
